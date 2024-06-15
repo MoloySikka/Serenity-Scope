@@ -62,7 +62,7 @@ def answer_survey():
 def interpret_survey():
     for Key, Value in survey_responses.items():
         total_points=0
-        for key, value in Key.items():
+        for key, value in Value.items():
             total_points+=value
 
         state=""
@@ -81,7 +81,9 @@ def interpret_survey():
         elif total_points >=31 & total_points <= 40:
             state="Very severe symptoms of stress or anxiety"
             
-        for key, value in survey_interpretation():
+        print("\n",state,"\n")
+            
+        for key, value in survey_interpretation.items():
             if key==state:
                 print(value)
 
