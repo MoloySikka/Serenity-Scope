@@ -9,8 +9,7 @@ def reset_timer():
     # noinspection PyTypeChecker
     window.after_cancel(timer)
     title.config(text="Timer")
-    canvas.itemconfig(timer_text, text="00:00")
-    # checks.config(text="")
+    timer_label.config(text="00:00")
     reps = 0
 
 
@@ -30,7 +29,7 @@ def count_down(count):
     count_min = count // 60 if count // 60 > 9 else f"0{count // 60}"
     count_sec = count % 60 if count % 60 > 9 else f"0{count % 60}"
 
-    canvas.itemconfig(timer_text, text=f"{count_min}:{count_sec}")
+    timer_label.config(text=f"{count_min}:{count_sec}")
     if count > 0:
         timer = window.after(1000, count_down, count - 1)
     else:
@@ -40,34 +39,32 @@ def count_down(count):
 
 
 window = Tk()
+window.config(bg='#BBDEE7')
 window.geometry('800x800')
 window.resizable(False, False)
 window.iconbitmap("serene-icon.ico")
 
 window.title("Meditate")
 
-# canvas
-canvas = Canvas(width=800, height=600, highlightthickness=0)
+# Timer text label replacing the canvas
+timer_label = Label(window, text="00:00", font=('Courier', 35, 'bold'))
 
-timer_text = canvas.create_text(100, 130, text="00:00", fill='white', font=('Courier', 35, 'bold'))
+# Timer title label
+title = Label(window, text='meditate', font=('KG Keep Your Head Up', 55, 'normal'), bg='#BBDEE7')
 
-canvas.grid(column=1, row=1)
+# Buttons
+start_button = Button(window, text='Start', command=start_timer, padx=20, pady=20)
+reset_button = Button(window, text='Reset', command=reset_timer, padx=20, pady=20)
 
-# timer
-title = Label(text='Timer', font=('Courier', 50, 'bold'))
-# title.config(fg=GREEN, bg=YELLOW)
+# Placing
+title.pack()
+title.update()
+title_width = title.winfo_width()
+x = (800 - title_width  ) // 2
+title.place(x=x, y=180)
 
-title.grid(column=1, row=0)
-
-# buttons
-start_button = Button(text='Start', command=start_timer)
-# start_button.config(bg=YELLOW, highlightthickness=0)
-
-start_button.grid(column=0, row=2)
-
-reset_button = Button(text='Reset', command=reset_timer)
-# reset_button.config(bg=YELLOW, highlightthickness=0)
-
-reset_button.grid(column=2, row=2)
+timer_label.place()
+start_button.place()
+reset_button.place()
 
 window.mainloop()
