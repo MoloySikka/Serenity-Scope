@@ -28,7 +28,7 @@ survey_interpretation = {
                                             "anxiety, "
                                             "but their mental health is most likely stable. They may have effective "
                                             "coping mechanisms and a generally upbeat mood and energy level.\nCheck out"
-                                            "this app's meditation and journaling features. Meditate every day and "
+                                            " this app's meditation and journaling features. Meditate every day and "
                                             "complete all journal entries; return to this survey after 50 days to see "
                                             "how you've improved.",
     "Mild symptoms of stress or anxiety": "Scores in this range indicate that the person is experiencing mild symptoms "
