@@ -1,26 +1,34 @@
 from tkinter import *
+import pygame
 
 reps = 0
 timer = None
+started = False
+BG_COLOR = '#BBDEE7'
+BUTTON_PRESSED = '#A6E3E9'
+pygame.mixer.init()
 
 
 def reset_timer():
-    global reps
+    global reps, started
+    stop_audio()
+    started = False
     # noinspection PyTypeChecker
     window.after_cancel(timer)
-    title.config(text="Timer")
     timer_label.config(text="00:00")
     reps = 0
 
 
 def start_timer():
-    global reps
-    reps += 1
+    global reps, started
+    if not started:
+        started = True
+        reps += 1
 
-    work_sec = 30 * 60
+        work_sec = 30 * 60
+        play_audio()
 
-    count_down(work_sec)
-    title.config(text="Work")
+        count_down(work_sec)
 
 
 def count_down(count):
@@ -38,8 +46,25 @@ def count_down(count):
         start_timer()
 
 
+def title_place():
+    title.update()
+    title_width = title.winfo_width()
+    _x = (800 - title_width) // 2
+    title.place(x=_x, y=125)
+
+
+def play_audio():
+    pygame.mixer.music.load("binaural-beats.mp3")
+    pygame.mixer.music.play(loops=-1)
+    pygame.mixer.music.set_volume(50 / 100)
+
+
+def stop_audio():
+    pygame.mixer.music.stop()
+
+
 window = Tk()
-window.config(bg='#BBDEE7')
+window.config(bg=BG_COLOR)
 window.geometry('800x800')
 window.resizable(False, False)
 window.iconbitmap("serene-icon.ico")
@@ -47,24 +72,41 @@ window.iconbitmap("serene-icon.ico")
 window.title("Meditate")
 
 # Timer text label replacing the canvas
-timer_label = Label(window, text="00:00", font=('Courier', 35, 'bold'))
+timer_label = Label(window, text="00:00", font=("Lovehearts XYZ", 60, 'normal'), bg=BG_COLOR)
 
 # Timer title label
-title = Label(window, text='meditate', font=('KG Keep Your Head Up', 55, 'normal'), bg='#BBDEE7')
+title = Label(window, text='meditate', font=('KG Keep Your Head Up', 55, 'bold'), bg=BG_COLOR)
 
 # Buttons
-start_button = Button(window, text='Start', command=start_timer, padx=20, pady=20)
-reset_button = Button(window, text='Reset', command=reset_timer, padx=20, pady=20)
+start_button = Button(window, text='Start', command=start_timer, padx=20, pady=20, bg=BG_COLOR,
+                      activebackground=BUTTON_PRESSED)
+reset_button = Button(window, text='Reset', command=reset_timer, padx=20, pady=20, bg=BG_COLOR,
+                      activebackground=BUTTON_PRESSED)
 
 # Placing
 title.pack()
-title.update()
-title_width = title.winfo_width()
-x = (800 - title_width  ) // 2
-title.place(x=x, y=180)
+title_place()
 
-timer_label.place()
-start_button.place()
-reset_button.place()
+timer_label.pack()
+timer_label.update()
+timer_width = timer_label.winfo_width()
+timer_height = timer_label.winfo_height()
+x = (800 - timer_width) // 2
+timer_label.place(x=x, y=360)
+
+start_button.pack()
+start_button.update()
+start_width = start_button.winfo_width()
+start_height = start_button.winfo_height()
+x = (800 - start_width) // 4
+start_button.place(x=x, y=600)
+
+reset_button.pack()
+reset_button.update()
+reset_width = reset_button.winfo_width()
+reset_height = reset_button.winfo_height()
+x = ((800 - reset_width) // 4) * 3
+reset_button.place(x=x, y=600)
+
 
 window.mainloop()
