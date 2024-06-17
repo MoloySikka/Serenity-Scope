@@ -1,13 +1,16 @@
 from tkinter import *
 import pygame
 
+pygame.mixer.init()
+
 reps = 0
 timer = None
 started = False
 BG_COLOR = '#BBDEE7'
 BUTTON_PRESSED = '#A6E3E9'
-pygame.mixer.init()
 MEDITATE_MIN = 10
+tranquil = pygame.mixer.Sound("Glance_Out_A_Casement_Window.mp3")
+binaural = pygame.mixer.Sound("binaural-beats.mp3")
 
 
 def reset_timer():
@@ -55,13 +58,12 @@ def title_place():
 
 
 def play_audio():
-    pygame.mixer.music.load("binaural-beats.mp3")
-    pygame.mixer.music.play(loops=-1)
+    tranquil.play(loops=-1)
     pygame.mixer.music.set_volume(50 / 100)
 
 
 def stop_audio():
-    pygame.mixer.music.stop()
+    tranquil.stop()
 
 
 window = Tk()
