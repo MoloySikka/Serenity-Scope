@@ -8,14 +8,14 @@ timer = None
 started = False
 BG_COLOR = '#BBDEE7'
 BUTTON_PRESSED = '#A6E3E9'
-MEDITATE_MIN = 10
+meditate_min = 30
 tranquil = pygame.mixer.Sound("Glance_Out_A_Casement_Window.mp3")
 binaural = pygame.mixer.Sound("binaural-beats.mp3")
 
 
-def reset_timer():
+def end_timer():
     global reps, started
-    stop_audio()
+    end_audio()
     started = False
     # noinspection PyTypeChecker
     window.after_cancel(timer)
@@ -29,10 +29,10 @@ def start_timer():
         started = True
         reps += 1
 
-        work_sec = MEDITATE_MIN * 60
+        meditate_sec = meditate_min * 60
         play_audio()
 
-        count_down(work_sec)
+        count_down(meditate_sec)
 
 
 def count_down(count):
@@ -62,7 +62,7 @@ def play_audio():
     pygame.mixer.music.set_volume(50 / 100)
 
 
-def stop_audio():
+def end_audio():
     tranquil.stop()
 
 
@@ -83,8 +83,8 @@ title = Label(window, text='meditate', font=('KG Keep Your Head Up', 55, 'bold')
 # Buttons
 start_button = Button(window, text='Start', command=start_timer, padx=20, pady=20, bg=BG_COLOR,
                       activebackground=BUTTON_PRESSED)
-reset_button = Button(window, text='Reset', command=reset_timer, padx=20, pady=20, bg=BG_COLOR,
-                      activebackground=BUTTON_PRESSED)
+end_button = Button(window, text='End', command=end_timer, padx=20, pady=20, bg=BG_COLOR,
+                    activebackground=BUTTON_PRESSED)
 
 # Placing
 title.pack()
@@ -104,11 +104,11 @@ start_height = start_button.winfo_height()
 x = (800 - start_width) // 4
 start_button.place(x=x, y=600)
 
-reset_button.pack()
-reset_button.update()
-reset_width = reset_button.winfo_width()
-reset_height = reset_button.winfo_height()
-x = ((800 - reset_width) // 4) * 3
-reset_button.place(x=x, y=600)
+end_button.pack()
+end_button.update()
+end_width = end_button.winfo_width()
+end_height = end_button.winfo_height()
+x = ((800 - end_width) // 4) * 3
+end_button.place(x=x, y=600)
 
 window.mainloop()
