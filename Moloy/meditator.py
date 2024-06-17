@@ -7,6 +7,7 @@ started = False
 BG_COLOR = '#BBDEE7'
 BUTTON_PRESSED = '#A6E3E9'
 pygame.mixer.init()
+MEDITATE_MIN = 30
 
 
 def reset_timer():
@@ -25,7 +26,7 @@ def start_timer():
         started = True
         reps += 1
 
-        work_sec = 30 * 60
+        work_sec = MEDITATE_MIN * 60
         play_audio()
 
         count_down(work_sec)
@@ -107,6 +108,5 @@ reset_width = reset_button.winfo_width()
 reset_height = reset_button.winfo_height()
 x = ((800 - reset_width) // 4) * 3
 reset_button.place(x=x, y=600)
-
 
 window.mainloop()
