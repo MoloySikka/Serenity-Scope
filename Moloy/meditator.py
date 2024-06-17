@@ -7,7 +7,7 @@ started = False
 BG_COLOR = '#BBDEE7'
 BUTTON_PRESSED = '#A6E3E9'
 pygame.mixer.init()
-MEDITATE_MIN = 30
+MEDITATE_MIN = 10
 
 
 def reset_timer():
