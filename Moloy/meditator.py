@@ -8,7 +8,7 @@ timer = None
 started = False
 BG_COLOR = '#BBDEE7'
 BUTTON_PRESSED = '#A6E3E9'
-meditate_min = 30
+meditate_min = 10
 tranquil = pygame.mixer.Sound("Glance_Out_A_Casement_Window.mp3")
 binaural = pygame.mixer.Sound("binaural-beats.mp3")
 
@@ -58,12 +58,15 @@ def title_place():
 
 
 def play_audio():
-    tranquil.play(loops=-1)
+    if audio_to_play.get() == 0:
+        tranquil.play(loops=-1)
+    elif audio_to_play.get() == 1:
+        binaural.play(loops=-1)
     pygame.mixer.music.set_volume(50 / 100)
 
 
 def end_audio():
-    tranquil.stop()
+    pygame.mixer.stop()
 
 
 window = Tk()
@@ -110,5 +113,25 @@ end_width = end_button.winfo_width()
 end_height = end_button.winfo_height()
 x = ((800 - end_width) // 4) * 3
 end_button.place(x=x, y=600)
+
+audio_to_play = IntVar()
+options = ['Tranquil Music', 'Binaural Beats (40 Hz)', 'No audio']
+
+radio_button_tranquil = Radiobutton(window, text=options[0], variable=audio_to_play, value=0, bg=BG_COLOR,
+                                    activebackground=BUTTON_PRESSED)
+radio_button_tranquil.pack()
+radio_button_tranquil.place(x=0, y=720)
+
+radio_button_binaural = Radiobutton(window, text=options[1], variable=audio_to_play, value=1, bg=BG_COLOR,
+                                    activebackground=BUTTON_PRESSED)
+radio_button_tranquil.update()
+radio_height = radio_button_tranquil.winfo_height()
+radio_button_binaural.pack()
+radio_button_binaural.place(x=0, y=720 + radio_height)
+
+radio_button_none = Radiobutton(window, text=options[2], variable=audio_to_play, value=2, bg=BG_COLOR,
+                                activebackground=BUTTON_PRESSED)
+radio_button_none.pack()
+radio_button_none.place(x=0, y=720 + 2 * radio_height)
 
 window.mainloop()
