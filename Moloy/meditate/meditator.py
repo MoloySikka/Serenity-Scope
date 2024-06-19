@@ -1,7 +1,12 @@
 from tkinter import *
+from tkinter import messagebox
 import pygame
 
-pygame.mixer.init()
+try:
+    pygame.mixer.init()
+except pygame.error:
+    messagebox.showerror('No Speakers!', 'An audio output device is required for SerenityScope.')
+
 
 reps = 0
 timer = None
