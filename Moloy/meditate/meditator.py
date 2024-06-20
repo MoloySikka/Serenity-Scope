@@ -6,6 +6,7 @@ import os
 with contextlib.redirect_stdout(open(os.devnull, 'w')):
     import pygame
 
+from center import center
 
 try:
     pygame.mixer.init()
@@ -21,20 +22,6 @@ BUTTON_PRESSED = '#A6E3E9'
 meditate_min = 10
 tranquil = pygame.mixer.Sound("Glance_Out_A_Casement_Window.mp3")
 binaural = pygame.mixer.Sound("binaural-beats.mp3")
-
-
-def center(win):
-    win.update_idletasks()
-    width = win.winfo_width()
-    frm_width = win.winfo_rootx() - win.winfo_x()
-    win_width = width + 2 * frm_width
-    height = win.winfo_height()
-    titlebar_height = win.winfo_rooty() - win.winfo_y()
-    win_height = height + titlebar_height + frm_width
-    _x = win.winfo_screenwidth() // 2 - win_width // 2
-    _y = win.winfo_screenheight() // 2 - win_height // 2
-    win.geometry('{}x{}+{}+{}'.format(width, height, _x, _y))
-    win.deiconify()
 
 
 def end_timer():
@@ -97,7 +84,7 @@ window = Tk()
 window.config(bg=BG_COLOR)
 window.geometry('800x800')
 window.resizable(False, False)
-window.iconbitmap("serene-logo.ico")
+window.iconbitmap("../../serene-logo.ico")
 
 window.title("Meditate")
 
@@ -159,4 +146,7 @@ radio_button_none.pack()
 radio_button_none.place(x=0, y=720 + 2 * radio_height)
 
 center(window)
+window.attributes('-topmost', True)
+window.attributes('-topmost', False)
+
 window.mainloop()
