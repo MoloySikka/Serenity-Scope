@@ -1,13 +1,10 @@
-import tkinter as tk
 from tkinter import *
-# from tkinter.ttk import *
-# import time
 
 # UI function imports
 from center import center
 from ui_functions import signin_page
 
-root = tk.Tk()
+root = Tk()
 
 root.geometry('800x800')
 root.title('Serenity Scope')
