@@ -3,7 +3,7 @@ from tkinter import *
 # UI function imports
 from center import center
 root = Tk()
-from ui_functions import signin_page
+from serene_functions import signin_page
 
 root.geometry('800x800')
 root.title('Serenity Scope')
