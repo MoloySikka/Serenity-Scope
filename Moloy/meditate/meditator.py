@@ -92,7 +92,7 @@ window = Tk()
 window.config(bg=BG_COLOR)
 window.geometry('800x800')
 window.resizable(False, False)
-window.iconbitmap("serene-icon.ico")
+window.iconbitmap("serene-logo.ico")
 
 window.title("Meditate")
 
