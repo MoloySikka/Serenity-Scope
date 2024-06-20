@@ -12,6 +12,7 @@ resized_image = original_image.resize((100, 100), Image.LANCZOS)
 # global constants
 LOGO_IMG = ImageTk.PhotoImage(resized_image)
 DB_NAME = 'serenity_scope'
+USER_NAME = ''
 
 # MySQL starts
 db = mysql.connector.connect(
@@ -36,7 +37,7 @@ else:
 
 # noinspection PyGlobalUndefined
 def signin_page():
-    global signin_page_var, username
+    global signin_page_var, username, pin
     signin_page_var = Toplevel()
     signin_page_var.title("Signin Page")
     signin_page_var.geometry("800x800")
@@ -59,14 +60,14 @@ def signin_page():
 
     Frame(frame, width=295, height=2, background='black').place(x=25, y=107)
 
-    password = Entry(frame, width=25, background='white', foreground='black', border=0, font=("Arial", 11))
-    password.place(x=30, y=150)
-    password.insert(0, 'Password')
+    pin = Entry(frame, width=25, background='white', foreground='black', border=0, font=("Arial", 11))
+    pin.place(x=30, y=150)
+    pin.insert(0, 'PIN')
 
     Frame(frame, width=295, height=2, background='black').place(x=25, y=177)
 
     sign_in_button = Button(frame, width=25, pady=8, text='Sign in', background='black', foreground='white',
-                            border=0, command=home_page)
+                            border=0, command=signin)
     sign_in_button.place(x=35, y=210)
 
     label2 = Label(frame, text="Don't have an account?", background='white', foreground='black', height=100,
@@ -133,24 +134,24 @@ def signup(user_name, user_pin):
     db.commit()
 
 
-def sign_in(user_name, user_pin):
+def signin():
+    global USER_NAME
+
+    user_name = username.get()
+    input_pin = pin.get()
+
     cursor.execute('select * from user_data')
     user_data = cursor.fetchall()
     user_list = [i[1] for i in user_data]
 
     if user_name in user_list:
-        cursor.execute('select * from user_data order by user_id desc limit 1;')
-        user_id = cursor.fetchall()[0][0] + 1  # Set user id after incrementing from last user
-
-        cursor.execute(f"insert into user_data values({user_id}, '{user_name}', '{user_pin}');")  # add data
-        message = f"""You have signed up to SerenityScope successfully!
-            User ID: {user_id}  (You won't need this)
-            User Name: {user_name}  (Remember this)
-            PIN: {user_pin} (And this)
-            """
-        messagebox.showinfo(title='Signed Up!', message=message)
-
+        user_pin = cursor.execute(f"select user_pin from user_data where user_name = '{user_name}'")
+        if user_pin == input_pin:
+            USER_NAME = user_name
+            home_page()
+        else:
+            messagebox.showerror('Incorrect PIN!', 'The PIN you have entered is incorrect.')
     else:
-        messagebox.showerror(title='Does Not Exist!', message=f"A user with the username {user_name} does not exist!")
+        messagebox.showerror('Does Not Exist!', f"A user with the username {user_name} does not exist!")
 
     db.commit()
