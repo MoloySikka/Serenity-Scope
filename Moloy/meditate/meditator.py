@@ -1,6 +1,11 @@
 from tkinter import *
 from tkinter import messagebox
-import pygame
+import contextlib
+import os
+# Suppress the Pygame welcome message
+with contextlib.redirect_stdout(open(os.devnull, 'w')):
+    import pygame
+
 
 try:
     pygame.mixer.init()
@@ -137,19 +142,19 @@ audio_to_play = IntVar()
 options = ['Tranquil Music', 'Binaural Beats (40 Hz)', 'No audio']
 
 radio_button_tranquil = Radiobutton(window, text=options[0], variable=audio_to_play, value=0, bg=BG_COLOR,
-                                    activebackground=BUTTON_PRESSED)
+                                    activebackground=BUTTON_PRESSED, cursor="hand2")
 radio_button_tranquil.pack()
 radio_button_tranquil.place(x=0, y=720)
 
 radio_button_binaural = Radiobutton(window, text=options[1], variable=audio_to_play, value=1, bg=BG_COLOR,
-                                    activebackground=BUTTON_PRESSED)
+                                    activebackground=BUTTON_PRESSED, cursor="hand2")
 radio_button_tranquil.update()
 radio_height = radio_button_tranquil.winfo_height()
 radio_button_binaural.pack()
 radio_button_binaural.place(x=0, y=720 + radio_height)
 
 radio_button_none = Radiobutton(window, text=options[2], variable=audio_to_play, value=2, bg=BG_COLOR,
-                                activebackground=BUTTON_PRESSED)
+                                activebackground=BUTTON_PRESSED, cursor="hand2")
 radio_button_none.pack()
 radio_button_none.place(x=0, y=720 + 2 * radio_height)
 

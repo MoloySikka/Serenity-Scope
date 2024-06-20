@@ -1,5 +1,12 @@
 from tkinter import *
 from center import center
+from PIL import Image, ImageTk
+
+# Open image
+original_image = Image.open('serene-logo.png')
+# Resize the image to fit within 100x100 pixels
+resized_image = original_image.resize((100, 100), Image.LANCZOS)
+logo_img = ImageTk.PhotoImage(resized_image)
 
 
 # noinspection PyGlobalUndefined
@@ -11,7 +18,7 @@ def signin_page():
     signin_page_var.config(bg='#BBDEE7')
     signin_page_var.iconbitmap('serene-logo.ico')
     center(signin_page_var)
-    logo_img = PhotoImage(file='serene-logo.png')
+
     label = Label(signin_page_var, height=100, width=100, image=logo_img)
     label.place(x=350, y=50)
 
