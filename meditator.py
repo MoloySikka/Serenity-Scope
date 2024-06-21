@@ -14,17 +14,17 @@ try:
 except pygame.error:
     messagebox.showerror('No Speakers!', 'An audio output device is required for SerenityScope.')
 
+reps = 0
+timer = None
+started = False
+bg_color = '#BBDEE7'
+button_pressed = '#A6E3E9'
+meditate_min = 10
+tranquil = pygame.mixer.Sound("Moloy/meditate/Glance_Out_A_Casement_Window.mp3")
+binaural = pygame.mixer.Sound("Moloy/meditate/binaural-beats.mp3")
+
 
 def meditate():
-    reps = 0
-    timer = None
-    started = False
-    bg_color = '#BBDEE7'
-    button_pressed = '#A6E3E9'
-    meditate_min = 10
-    tranquil = pygame.mixer.Sound("Glance_Out_A_Casement_Window.mp3")
-    binaural = pygame.mixer.Sound("binaural-beats.mp3")
-
     # noinspection PyGlobalUndefined
     def end_timer():
         global reps, started
@@ -78,11 +78,11 @@ def meditate():
     def end_audio():
         pygame.mixer.stop()
 
-    window = Tk()
+    window = Toplevel()
     window.config(bg=bg_color)
     window.geometry('800x800')
     window.resizable(False, False)
-    window.iconbitmap("../../serene-logo.ico")
+    window.iconbitmap("serene-logo.ico")
 
     window.title("Meditate")
 
@@ -105,21 +105,21 @@ def meditate():
     timer_label.pack()
     timer_label.update()
     timer_width = timer_label.winfo_width()
-    timer_height = timer_label.winfo_height()
+    # timer_height = timer_label.winfo_height()
     x = (800 - timer_width) // 2
     timer_label.place(x=x, y=360)
 
     start_button.pack()
     start_button.update()
     start_width = start_button.winfo_width()
-    start_height = start_button.winfo_height()
+    # start_height = start_button.winfo_height()
     x = (800 - start_width) // 4
     start_button.place(x=x, y=600)
 
     end_button.pack()
     end_button.update()
     end_width = end_button.winfo_width()
-    end_height = end_button.winfo_height()
+    # end_height = end_button.winfo_height()
     x = ((800 - end_width) // 4) * 3
     end_button.place(x=x, y=600)
 
