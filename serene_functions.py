@@ -17,27 +17,28 @@ LOGO_IMG = ImageTk.PhotoImage(resized_image)
 DB_NAME = 'serenity_scope'
 USER_NAME = ''
 
-# MySQL starts
-db = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='MlysqlSka999%'
-)
 
-cursor = db.cursor()
-
-cursor.execute('show databases')
-
-if (DB_NAME,) not in cursor.fetchall():
-    cursor.execute(f'create database {DB_NAME};')
-    cursor.execute(f'use {DB_NAME};')
-    cursor_prompt = "create table(user_data(user_id int(3), user_name varchar(20), user_pin int(6))"
-    db.commit()
-else:
-    cursor.execute(f'use {DB_NAME}')
-
-
-# MySQL ends
+# # MySQL starts
+# db = mysql.connector.connect(
+#     host='localhost',
+#     user='root',
+#     password='MlysqlSka999%'
+# )
+#
+# cursor = db.cursor()
+#
+# cursor.execute('show databases')
+#
+# if (DB_NAME,) not in cursor.fetchall():
+#     cursor.execute(f'create database {DB_NAME};')
+#     cursor.execute(f'use {DB_NAME};')
+#     cursor_prompt = "create table(user_data(user_id int(3), user_name varchar(20), user_pin int(6))"
+#     db.commit()
+# else:
+#     cursor.execute(f'use {DB_NAME}')
+#
+#
+# # MySQL ends
 
 
 # noinspection PyGlobalUndefined
@@ -141,7 +142,6 @@ def signup(user_name, user_pin):
 
     signup_page_var.withdraw()
     signin_page_var.deiconify()
-
 
 
 def signin():
