@@ -3,9 +3,25 @@ from center import center
 from PIL import Image, ImageTk
 import mysql.connector
 from tkinter import messagebox
+import webbrowser
 
 # page imports
 from meditator import meditate
+from survey import survey
+from gratitude import gratitude
+
+
+def survey_gap():
+    survey()
+    
+def gratitude_gap():
+    gratitude()
+
+def be_happy():
+    webbrowser.open('https://www.youtube.com/watch?v=iik25wqIuFo')
+
+def meditate_gap():
+    meditate()
 
 # Open image
 original_image = Image.open('serene-logo.png')
@@ -111,9 +127,35 @@ def home_page():
     home_page_var.iconbitmap('serene-logo.ico')
     center(home_page_var)
 
+    left_eye = Frame(home_page_var, width=150, height=150, background='white')
+    left_eye.place(x=150, y=150)
 
-def on_leave(e):
-    name = username.get()
+    survey = Button(left_eye, width=5, pady=8, text='Take our survey', background='black', foreground='white', border=0, command=survey_gap)
+    survey.place(x=35, y=35)
+
+    right_eye = Frame(home_page_var, width=150, height=150, background='white')
+    right_eye.place(x=500, y=150)
+
+    journal = Button(right_eye, width=2, pady=8, text='Write a entry', background='black', foreground='white', border=0, command=gratitude_gap)
+    journal.place(x=35, y=35)
+
+    nose = Frame(home_page_var, width=80, height=80, background='white')
+    nose.place(x=360, y=375)
+
+    be_happy_btn = Button(nose, width=2, pady=8, text='Be happy', background='black', foreground='white', border=0, command=be_happy)
+    be_happy_btn.place(x=35, y=35)
+
+    mouth = Frame(home_page_var, width=350, height=150, background='white')
+    mouth.place(x=225, y=525)
+
+    meditate = Button(mouth, width=2, pady=8, text='Meditate', background='black', foreground='white', border=0, command=meditate_gap)
+    meditate.place(x=35, y=35)
+
+    sign_out = Frame(home_page_var, width=25, height=25, background='white')
+    sign_out.place(x=750, y=50)
+
+    sign_out_btn = Button(sign_out, width=2, pady=8, text='Sign out', background='black', foreground='white', border=0)
+    sign_out_btn.place(x=15, y=15)
 
 
 def signup(user_name, user_pin):
