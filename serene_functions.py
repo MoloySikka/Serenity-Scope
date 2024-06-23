@@ -13,15 +13,19 @@ from gratitude import gratitude
 
 def survey_gap():
     survey()
-    
+
+
 def gratitude_gap():
     gratitude()
+
 
 def be_happy():
     webbrowser.open('https://www.youtube.com/watch?v=iik25wqIuFo')
 
+
 def meditate_gap():
     meditate()
+
 
 # Open image
 original_image = Image.open('serene-logo.png')
@@ -130,26 +134,30 @@ def home_page():
     left_eye = Frame(home_page_var, width=150, height=150, background='white')
     left_eye.place(x=150, y=150)
 
-    survey = Button(left_eye, width=5, pady=8, text='Take our survey', background='black', foreground='white', border=0, command=survey_gap)
-    survey.place(x=35, y=35)
+    survey_button = Button(left_eye, width=150, height=150, text='Take our survey', background='black', foreground='white', border=0,
+                           command=survey_gap)
+    survey_button.place(x=0, y=0)
 
     right_eye = Frame(home_page_var, width=150, height=150, background='white')
     right_eye.place(x=500, y=150)
 
-    journal = Button(right_eye, width=2, pady=8, text='Write a entry', background='black', foreground='white', border=0, command=gratitude_gap)
-    journal.place(x=35, y=35)
+    journal = Button(right_eye, padx=50, pady=30, text='Write a entry', background='black', foreground='white', border=0,
+                     command=gratitude_gap)
+    journal.place(x=0, y=0)
 
     nose = Frame(home_page_var, width=80, height=80, background='white')
     nose.place(x=360, y=375)
 
-    be_happy_btn = Button(nose, width=2, pady=8, text='Be happy', background='black', foreground='white', border=0, command=be_happy)
-    be_happy_btn.place(x=35, y=35)
+    be_happy_btn = Button(nose, padx=13, pady=30, text='Be happy', background='black', foreground='white',
+                          border=0, command=be_happy)
+    be_happy_btn.place(x=0, y=0)
 
     mouth = Frame(home_page_var, width=350, height=150, background='white')
     mouth.place(x=225, y=525)
 
-    meditate = Button(mouth, width=2, pady=8, text='Meditate', background='black', foreground='white', border=0, command=meditate_gap)
-    meditate.place(x=35, y=35)
+    meditate_button = Button(mouth, padx=150, pady=65, text='Meditate', background='black', foreground='white',
+                             border=0, command=meditate_gap)
+    meditate_button.place(x=0, y=0)
 
     sign_out = Frame(home_page_var, width=25, height=25, background='white')
     sign_out.place(x=750, y=50)
