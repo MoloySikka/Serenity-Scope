@@ -1,9 +1,11 @@
+import pickle
+from datetime import datetime
 from tkinter import *
 from tkinter import messagebox
-import tkinter as tk
+
 from center import center
-from datetime import datetime
-import pickle
+
+survey_progress = 0
 
 with open("user_survey_responses.dat", "rb") as fog:
     user_survey_result = pickle.load(fog)
@@ -118,7 +120,7 @@ def old_surveys():
     old_surveys_var.iconbitmap('serene-logo.ico')
     center(old_surveys_var)
 
-    # y_pos = 0
+    y_pos = 0
 
     label1 = Label(old_surveys_var, height=3, width=70, text="Here are your survey results:")
     label1.place(x=75, y=y_pos)
@@ -137,7 +139,7 @@ def old_surveys():
 
         y_pos += 50
 
-        label4 = Label(old_surveys_var, width=70, text='Detailed Resut: ' + value[2] + '\n', wraplength=250)
+        label4 = Label(old_surveys_var, width=70, text='Detailed Result: ' + value[2] + '\n', wraplength=250)
         label4.place(x=75, y=y_pos)
 
         y_pos += 100
@@ -153,6 +155,20 @@ def survey():
     survey_var.iconbitmap('serene-logo.ico')
     center(survey_var)
 
+    while True:
+        # noinspection PyBroadException
+        try:
+            start_survey(survey_progress)
+        except Exception:
+            break
+
+
+def start_survey(sur_num):
+    # noinspection PyGlobalUndefined
+    global answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8, answer9, answer10
+    for widget in survey_var.winfo_children():
+        widget.destroy()
+
     y_pos = 50
     x_pos = 175
 
@@ -160,211 +176,220 @@ def survey():
     label.place(x=275, y=y_pos)
     y_pos += 50
 
-    label1 = Label(survey_var, height=3, width=50, text='Q1.' + list(survey_questions.keys())[0])
-    label1.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer1 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[0][0], variable=answer1, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[0][1], variable=answer1, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[0][2], variable=answer1, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[0][3], variable=answer1, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label2 = Label(survey_var, height=3, width=50, text='Q2.' + list(survey_questions.keys())[1])
-    label2.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer2 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[1][0], variable=answer2, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[1][1], variable=answer2, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[1][2], variable=answer2, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[1][3], variable=answer2, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label3 = Label(survey_var, height=3, width=50, text='Q3.' + list(survey_questions.keys())[2])
-    label3.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer3 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[2][0], variable=answer3, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[2][1], variable=answer3, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[2][2], variable=answer3, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[2][3], variable=answer3, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label4 = Label(survey_var, height=3, width=50, text='Q4.' + list(survey_questions.keys())[3])
-    label4.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer4 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[3][0], variable=answer4, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[3][1], variable=answer4, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[3][2], variable=answer4, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[3][3], variable=answer4, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label5 = Label(survey_var, height=3, width=50, text='Q5.' + list(survey_questions.keys())[4])
-    label5.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer5 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[4][0], variable=answer5, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[4][1], variable=answer5, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[4][2], variable=answer5, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[4][3], variable=answer5, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label6 = Label(survey_var, height=3, width=50, text='Q6.' + list(survey_questions.keys())[5])
-    label6.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer6 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[5][0], variable=answer6, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[5][1], variable=answer6, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[5][2], variable=answer6, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[5][3], variable=answer6, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label7 = Label(survey_var, height=3, width=50, text='Q7.' + list(survey_questions.keys())[6])
-    label7.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer7 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[6][0], variable=answer7, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[6][1], variable=answer7, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[6][2], variable=answer7, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[6][3], variable=answer7, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label8 = Label(survey_var, height=3, width=50, text='Q8.' + list(survey_questions.keys())[7])
-    label8.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer8 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[7][0], variable=answer8, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[7][1], variable=answer8, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[7][2], variable=answer8, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[7][3], variable=answer8, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label9 = Label(survey_var, height=3, width=50, text='Q9.' + list(survey_questions.keys())[8])
-    label9.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer9 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[8][0], variable=answer9, value=1).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[8][1], variable=answer9, value=2).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[8][2], variable=answer9, value=3).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[8][3], variable=answer9, value=4).place(x=x_pos,
-                                                                                                         y=y_pos)
-    y_pos += 50
-
-    label10 = Label(survey_var, height=3, width=50, text='Q10.' + list(survey_questions.keys())[9])
-    label10.place(x=x_pos, y=y_pos)
-
-    y_pos += 70
-
-    answer10 = IntVar()
-
-    Radiobutton(survey_var, text=list(survey_questions.values())[9][0], variable=answer10, value=1).place(x=x_pos,
-                                                                                                          y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[9][1], variable=answer10, value=2).place(x=x_pos,
-                                                                                                          y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[9][2], variable=answer10, value=3).place(x=x_pos,
-                                                                                                          y=y_pos)
-    y_pos += 30
-    Radiobutton(survey_var, text=list(survey_questions.values())[9][3], variable=answer10, value=4).place(x=x_pos,
-                                                                                                          y=y_pos)
-    y_pos += 50
-
-    submit_btn = Button(survey_var, width=8, pady=8, text='Submit', background='black', foreground='white', border=0,
-                        command=lambda: calculate(
-                            answer1.get() + answer2.get() + answer3.get() + answer4.get() + answer5.get() + answer6.get() + answer7.get() + answer8.get() + answer9.get() + answer10.get()))
-    submit_btn.place(x=335, y=750)
-
     old_surveys_btn = Button(survey_var, width=8, pady=8, text='View old surveys', background='black',
                              foreground='white', border=0, command=old_surveys)
     old_surveys_btn.place(x=685, y=15)
+
+    if sur_num == 0:
+        label1 = Label(survey_var, height=3, width=50, text='Q1.' + list(survey_questions.keys())[0])
+        label1.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer1 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[0][0], variable=answer1, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[0][1], variable=answer1, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[0][2], variable=answer1, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[0][3], variable=answer1, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+        label2 = Label(survey_var, height=3, width=50, text='Q2.' + list(survey_questions.keys())[1])
+        label2.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer2 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[1][0], variable=answer2, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[1][1], variable=answer2, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[1][2], variable=answer2, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[1][3], variable=answer2, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+
+    elif sur_num == 1:
+        label3 = Label(survey_var, height=3, width=50, text='Q3.' + list(survey_questions.keys())[2])
+        label3.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer3 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[2][0], variable=answer3, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[2][1], variable=answer3, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[2][2], variable=answer3, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[2][3], variable=answer3, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+        label4 = Label(survey_var, height=3, width=50, text='Q4.' + list(survey_questions.keys())[3])
+        label4.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer4 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[3][0], variable=answer4, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[3][1], variable=answer4, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[3][2], variable=answer4, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[3][3], variable=answer4, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+
+    elif sur_num == 2:
+        label5 = Label(survey_var, height=3, width=50, text='Q5.' + list(survey_questions.keys())[4])
+        label5.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer5 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[4][0], variable=answer5, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[4][1], variable=answer5, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[4][2], variable=answer5, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[4][3], variable=answer5, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+        label6 = Label(survey_var, height=3, width=50, text='Q6.' + list(survey_questions.keys())[5])
+        label6.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer6 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[5][0], variable=answer6, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[5][1], variable=answer6, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[5][2], variable=answer6, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[5][3], variable=answer6, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+
+    elif sur_num == 3:
+        label7 = Label(survey_var, height=3, width=50, text='Q7.' + list(survey_questions.keys())[6])
+        label7.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer7 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[6][0], variable=answer7, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[6][1], variable=answer7, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[6][2], variable=answer7, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[6][3], variable=answer7, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+        label8 = Label(survey_var, height=3, width=50, text='Q8.' + list(survey_questions.keys())[7])
+        label8.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer8 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[7][0], variable=answer8, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[7][1], variable=answer8, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[7][2], variable=answer8, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[7][3], variable=answer8, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+
+    elif sur_num == 4:
+        label9 = Label(survey_var, height=3, width=50, text='Q9.' + list(survey_questions.keys())[8])
+        label9.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer9 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[8][0], variable=answer9, value=1).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[8][1], variable=answer9, value=2).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[8][2], variable=answer9, value=3).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[8][3], variable=answer9, value=4).place(x=x_pos,
+                                                                                                             y=y_pos)
+        y_pos += 50
+
+        label10 = Label(survey_var, height=3, width=50, text='Q10.' + list(survey_questions.keys())[9])
+        label10.place(x=x_pos, y=y_pos)
+
+        y_pos += 70
+
+        answer10 = IntVar()
+
+        Radiobutton(survey_var, text=list(survey_questions.values())[9][0], variable=answer10, value=1).place(x=x_pos,
+                                                                                                              y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[9][1], variable=answer10, value=2).place(x=x_pos,
+                                                                                                              y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[9][2], variable=answer10, value=3).place(x=x_pos,
+                                                                                                              y=y_pos)
+        y_pos += 30
+        Radiobutton(survey_var, text=list(survey_questions.values())[9][3], variable=answer10, value=4).place(x=x_pos,
+                                                                                                              y=y_pos)
+        y_pos += 50
+
+        submit_btn = Button(survey_var, width=8, pady=8, text='Submit', background='black', foreground='white',
+                            border=0,
+                            command=lambda: calculate(
+                                answer1.get() + answer2.get() + answer3.get() + answer4.get() + answer5.get() +
+                                answer6.get() + answer7.get() + answer8.get() + answer9.get() + answer10.get()))
+        submit_btn.place(x=335, y=750)
