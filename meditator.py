@@ -17,8 +17,10 @@ except pygame.error:
 reps = 0
 timer = None
 started = False
-bg_color = '#BBDEE7'
-button_pressed = '#A6E3E9'
+COLOURS = {'grey': '#f7f7f7', 'fr blue': '#0479D8', 'pic blue': '#55AEE1', 'mauve': '#D6CDEA', 'l blue': '#A6E3E9',
+           'l mauve': '#D0D9E4', 'l brick': '#D9ABA2', 'brick': '#E27D60'}
+BG_COLOR = COLOURS['mauve']
+BG_ALT = COLOURS['l blue']
 meditate_min = 10
 tranquil = pygame.mixer.Sound("Moloy/meditate/Glance_Out_A_Casement_Window.mp3")
 binaural = pygame.mixer.Sound("Moloy/meditate/binaural-beats.mp3")
@@ -79,7 +81,7 @@ def meditate():
         pygame.mixer.stop()
 
     window = Toplevel()
-    window.config(bg=bg_color)
+    window.config(bg=BG_COLOR)
     window.geometry('800x800')
     window.resizable(False, False)
     window.iconbitmap("serene-logo.ico")
@@ -87,16 +89,16 @@ def meditate():
     window.title("Meditate")
 
     # Timer text label replacing the canvas
-    timer_label = Label(window, text="00:00", font=("Lovehearts XYZ", 60, 'normal'), bg=bg_color)
+    timer_label = Label(window, text="00:00", font=("Lovehearts XYZ", 60, 'normal'), bg=BG_COLOR)
 
     # Timer title label
-    title = Label(window, text='meditate', font=('KG Keep Your Head Up', 55, 'bold'), bg=bg_color)
+    title = Label(window, text='meditate', font=('KG Keep Your Head Up', 55, 'bold'), bg=BG_COLOR)
 
     # Buttons
-    start_button = Button(window, text='Start', command=start_timer, padx=20, pady=20, bg=bg_color,
-                          activebackground=button_pressed)
-    end_button = Button(window, text='End', command=end_timer, padx=20, pady=20, bg=bg_color,
-                        activebackground=button_pressed)
+    start_button = Button(window, text='Start', command=start_timer, padx=20, pady=20, bg=BG_COLOR,
+                          activebackground=BG_ALT)
+    end_button = Button(window, text='End', command=end_timer, padx=20, pady=20, bg=BG_COLOR,
+                        activebackground=BG_ALT)
 
     # Placing
     title.pack()
@@ -126,20 +128,20 @@ def meditate():
     audio_to_play = IntVar()
     options = ['Tranquil Music', 'Binaural Beats (40 Hz)', 'No audio']
 
-    radio_button_tranquil = Radiobutton(window, text=options[0], variable=audio_to_play, value=0, bg=bg_color,
-                                        activebackground=button_pressed, cursor="hand2")
+    radio_button_tranquil = Radiobutton(window, text=options[0], variable=audio_to_play, value=0, bg=BG_COLOR,
+                                        activebackground=BG_ALT, cursor="hand2")
     radio_button_tranquil.pack()
     radio_button_tranquil.place(x=0, y=720)
 
-    radio_button_binaural = Radiobutton(window, text=options[1], variable=audio_to_play, value=1, bg=bg_color,
-                                        activebackground=button_pressed, cursor="hand2")
+    radio_button_binaural = Radiobutton(window, text=options[1], variable=audio_to_play, value=1, bg=BG_COLOR,
+                                        activebackground=BG_ALT, cursor="hand2")
     radio_button_tranquil.update()
     radio_height = radio_button_tranquil.winfo_height()
     radio_button_binaural.pack()
     radio_button_binaural.place(x=0, y=720 + radio_height)
 
-    radio_button_none = Radiobutton(window, text=options[2], variable=audio_to_play, value=2, bg=bg_color,
-                                    activebackground=button_pressed, cursor="hand2")
+    radio_button_none = Radiobutton(window, text=options[2], variable=audio_to_play, value=2, bg=BG_COLOR,
+                                    activebackground=BG_ALT, cursor="hand2")
     radio_button_none.pack()
     radio_button_none.place(x=0, y=720 + 2 * radio_height)
 

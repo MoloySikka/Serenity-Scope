@@ -1,13 +1,19 @@
 from tkinter import *
 from center import center
-import tkinter as tk
 
 import pickle
 from datetime import datetime
 
-# Check if entry question has already been done
-# with open("user_journal_entries.dat", "rb") as fog:
-#     user_journal_entries = pickle.load(fog)
+try:
+    with open("user_journal_entries.dat", "rb") as f:
+        user_journal_entries = pickle.load(f)
+except FileNotFoundError:
+    with open('user_journal_entries.dat', 'wb') as f:
+        user_journal_entries = {}
+        pickle.dump({}, f)
+
+COLOURS = {'grey': '#f7f7f7', 'fr blue': '#0479D8', 'pic blue': '#55AEE1', 'mauve': '#D6CDEA', 'l blue': '#A6E3E9',
+           'l mauve': '#D0D9E4', 'l brick': '#D9ABA2', 'brick': '#E27D60'}
 
 journal_questions = [
     "Write about a time when you laughed uncontrollably.",
@@ -63,11 +69,11 @@ journal_questions = [
 
 
 def add_entry(question, entry):
-    f_ = open("user_journal_entries.dat", "ab")
     user_journal_entries.update(
         {question: [datetime.now().strftime("%B %d, %Y"), datetime.now().strftime("%H:%M:%S"), entry]})
-    pickle.dump(user_journal_entries, f_)
-    f_.close()
+    with open('user_journal_entries.dat', 'wb') as f_:
+        pickle.dump(user_journal_entries, f_)
+    gratitude_var.withdraw()
 
 
 # noinspection PyGlobalUndefined
@@ -76,61 +82,94 @@ def gratitude():
     gratitude_var = Toplevel()
     gratitude_var.title("Gratitude Journaling Page")
     gratitude_var.geometry("800x800")
-    gratitude_var.config(bg='#BBDEE7')
+    gratitude_var.config(bg=COLOURS['mauve'])
     gratitude_var.iconbitmap('serene-logo.ico')
     center(gratitude_var)
 
-    label1 = Label(gratitude_var, height=3, width=30, text="Gratitude Journaling")
-    label1.place(x=275, y=50)
+    label1 = Label(gratitude_var, height=3, width=30, text="Gratitude Journaling", bg=COLOURS['mauve'],
+                   font=('Basic', 30, 'normal'), fg=COLOURS['brick'])
+    label1.place(x=165, y=50)
 
-    label2 = Label(gratitude_var, height=3, text=journal_questions[len(list(user_journal_entries.keys()))])
-    label2.place(x=275, y=150)
+    label2 = Label(gratitude_var, height=3, text='- ' + journal_questions[len(list(user_journal_entries.keys()))],
+                   bg=COLOURS['mauve'], font=('Basic', 20, 'normal'), fg=COLOURS['fr blue'])
+    label2.place(x=25, y=150)
 
-    inputtxt = Text(gratitude_var, height=20, width=45, bg="#8DEBB0", bd=0, font=('Gotham Circular', 20))
-    inputtxt.place(x=100, y=250)
+    inputtxt = Text(gratitude_var, height=15, width=47, bg="#8DEBB0", bd=0, font=('Harlow Solid Italic', 20))
+    inputtxt.place(x=100, y=230)
 
-    submit_btn = Button(gratitude_var, width=8, pady=8, text='Submit', background='black', foreground='white', border=0,
+    submit_btn = Button(gratitude_var, width=8, pady=8, text='Submit', background=COLOURS['l brick'],
+                        border=0,
                         command=lambda: add_entry(journal_questions[len(list(user_journal_entries.keys()))],
-                                                  inputtxt.get('1.0', tk.END)))
-    submit_btn.place(x=335, y=750)
+                                                  inputtxt.get('1.0', END)), font=('Romeo', 10))
+    submit_btn.place(x=360, y=750)
 
-    old_entries_btn = Button(gratitude_var, width=8, pady=8, text='View old entries', background='black',
-                             foreground='white', border=0, command=old_entries)
+    old_entries_btn = Button(gratitude_var, pady=8, text='View old entries', background=COLOURS['l brick'],
+                             border=0, command=old_entries, font=('Romeo', 10))
     old_entries_btn.place(x=685, y=15)
 
 
 # noinspection PyGlobalUndefined
 def old_entries():
-    global old_entries_var
+    global old_entries_var, key
     old_entries_var = Toplevel()
     old_entries_var.title("Gratitude Journaling Old Entries")
     old_entries_var.geometry("800x800")
-    old_entries_var.config(bg='#BBDEE7')
+    old_entries_var.config(bg=COLOURS['mauve'])
     old_entries_var.iconbitmap('serene-logo.ico')
     center(old_entries_var)
 
-    y_pos = 50
+    key = 0
 
-    label1 = Label(old_entries_var, height=3, width=70, text="Here are your journal entries:")
-    label1.place(x=75, y=y_pos)
+    def show_entry():
+        y_pos = 50
 
-    y_pos += 50
+        label1 = Label(old_entries_var, height=3, width=80, text="Here are your journal entries:",
+                       bg=COLOURS['mauve'], font=('Segoe UI', 10, 'bold'))
+        label1.place(x=75, y=y_pos)
 
-    for key, value in user_journal_entries.items():
-        label2 = Label(old_entries_var, height=3, width=70,
-                       text=str(list(user_journal_entries.keys()).index(key) + 1) + ". " + key)
+        y_pos += 50
+
+        quest = [i for i in user_journal_entries][key]
+        val = user_journal_entries.values()
+        value = [i for i in val][key]
+
+        label2 = Label(old_entries_var, height=3, width=90, bg=COLOURS['mauve'],
+                       text=str(list(user_journal_entries.keys()).index(quest) + 1) + ". " + quest)
         label2.place(x=75, y=y_pos)
 
         y_pos += 50
 
-        label3 = Label(old_entries_var, height=3, width=70, text='Date: ' + value[0] + '\nTime: ' + value[1])
+        label3 = Label(old_entries_var, height=3, width=90, bg=COLOURS['mauve'],
+                       text='Date: ' + value[0] + '\nTime: ' + value[1])
         label3.place(x=75, y=y_pos)
 
         y_pos += 50
 
-        label4 = Label(old_entries_var, width=70, text='Entry: ' + value[2] + '\n', wraplength=250)
+        label4 = Label(old_entries_var, width=90, bg=COLOURS['mauve'], text='Entry:\n' + value[2] + '\n', wraplength=250)
         label4.place(x=75, y=y_pos)
 
         y_pos += 100
 
+    # noinspection PyGlobalUndefined
+    def back():
+        global key
+        if not key == 0:
+            key -= 1
+            show_entry()
 
+    # noinspection PyGlobalUndefined
+    def next():
+        global key
+        if not key == len(user_journal_entries) - 1:
+            key += 1
+            show_entry()
+
+    back_btn = Button(old_entries_var, width=8, pady=8, text='Back', background=COLOURS['l brick'],
+                      border=0, command=back)
+    back_btn.place(x=100, y=750)
+
+    next_btn = Button(old_entries_var, width=8, pady=8, text='Next', background=COLOURS['l brick'],
+                      border=0, command=next)
+    next_btn.place(x=650, y=750)
+
+    show_entry()
