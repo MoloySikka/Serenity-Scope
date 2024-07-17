@@ -22,8 +22,8 @@ COLOURS = {'grey': '#f7f7f7', 'fr blue': '#0479D8', 'pic blue': '#55AEE1', 'mauv
 BG_COLOR = COLOURS['mauve']
 BG_ALT = COLOURS['l blue']
 meditate_min = 10
-tranquil = pygame.mixer.Sound("Moloy/meditate/Glance_Out_A_Casement_Window.mp3")
-binaural = pygame.mixer.Sound("Moloy/meditate/binaural-beats.mp3")
+tranquil = pygame.mixer.Sound("Glance_Out_A_Casement_Window.mp3")
+binaural = pygame.mixer.Sound("binaural-beats.mp3")
 
 
 def meditate():

@@ -152,6 +152,10 @@ def old_surveys():
 
         y_pos += 100
 
+    next_btn = Button(old_surveys_var, width=8, pady=8, text='Next', background='black', foreground='white',
+                      border=0, command=lambda: start_survey(1))
+    next_btn.place(x=720, y=750)
+
 
 # noinspection PyGlobalUndefined
 def survey():
