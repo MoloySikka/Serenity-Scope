@@ -1,3 +1,5 @@
+# Code from: https://stackoverflow.com/questions/3352918/how-to-center-a-window-on-#the-screen-in-Tkinter
+
 def center(win):
     win.update_idletasks()
     width = win.winfo_width()
