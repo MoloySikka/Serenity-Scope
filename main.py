@@ -10,15 +10,9 @@ root.title('Serenity Scope')
 root.config(bg='#BBDEE7')
 center(root)
 
-# Might have to do the icon for every page individually
 root.iconbitmap('serene-logo.ico')
 
-# Animation plays
-
 root.withdraw()
-
-# Show the window by writing signin_page_var.deiconify()
-
 
 signin_page()
 

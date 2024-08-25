@@ -49,7 +49,7 @@ BG_ALT = COLOURS['l mauve']
 db = mysql.connector.connect(
     host='localhost',
     user='root',
-    password='MlysqlSka999%'
+    password='sql@123'
 )
 
 cursor = db.cursor()
